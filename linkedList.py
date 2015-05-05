@@ -1,4 +1,3 @@
-
 class Node(object):
 	#__init__ roughly a JS constructor
 	def __init__(self, value):
@@ -34,24 +33,42 @@ class linkedList(object):
 	def update(self):
 		finished = "false"
 		front = self.head
+		previous = None
 		while finished == "false":
-			if front.count >= 7:
-				stuff
-				
+			if front is None:
+				finished = 'true'
+			elif front.count >= 3:
+				if previous is not None:
+					previous.next = front.next
+					front = front.next
+				else:
+					self.head = front.next
+					front = front.next
 			else:
 				front.count = front.count + 1
 				front = front.next
 					
-	def delete(self):
-		if self.head is not None:
-			print "Removing"
-			print self.head
-			self.head = self.head.next
+	def report(self):
+		finished = 'false'
+		node = self.head
+		count = 0
+		while finished == 'false':
+			if node is not None:
+				print "location %s, value: %s, time in QUEUE, %s" % (count, node.value, node.count) 
+				count = count + 1
+				node = node.next
+			else:
+				print "\n"
+				finished = 'true'
 		
-		
-myList = linkedList()
-node1 = Node(5)
-node2 = Node(7)
-myList.insert(node1)
-myList.insert(node2)
-myList.delete()
+	def cycle(self, value):
+		newNode = Node(value)
+		self.update()
+		self.insert(newNode)
+
+	def frontNodeValue(self):
+		return self.head.value
+
+
+
+

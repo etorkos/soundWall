@@ -1,14 +1,15 @@
 
 from time import sleep
+from linkedList import linkedList
 import subprocess
-import serial
+# import serial
 
 state= 'true'
-bluetoothSerial = serial.Serial("/dev/rfcomm1", 9600)
+# bluetoothSerial = serial.Serial("/dev/rfcomm1", 9600)
 
 count = 0
 prevMaxNoise = 0
-
+myList = linkedList()
 #def loop (state):
 	#white = subprocess.Popen(['play', '-n', 'synth', 'whitenoise'], stdin=subprocess.PIPE);
 	#sleep(.5)
@@ -25,15 +26,8 @@ def loop():
 	while state == 'true':
 		print("Checking bluetooth signal")
 		line = int( bluetoothSerial.readline())
-		print(line)
-		if line >= prevMaxNoise:
-			count= 0
-			prevMaxNoise = line
-			print "volume increases"
-		elif count < 8:
-			count = count + 1
-		else:
-			count = 0
-			prevMaxNoise = line
+		myList.cycle(line)
+		volume = myList.frontNodeValue()
+		print "Current Volume %v" % volume
 	
 loop()
