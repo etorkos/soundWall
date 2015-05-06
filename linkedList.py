@@ -37,7 +37,7 @@ class linkedList(object):
 		while finished == "false":
 			if front is None:
 				finished = 'true'
-			elif front.count >= 3:
+			elif front.count >= 9:
 				if previous is not None:
 					previous.next = front.next
 					front = front.next
