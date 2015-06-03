@@ -25,16 +25,19 @@ def loop():
 		print("Checking bluetooth signal")
 		line = int( bluetoothSerial.readline())
 		myList.cycle(line)
-		volume = myList.frontNodeValue() * 10
-		print "Current Volume %s" % volume
+		vol = myList.frontNodeValue() * 10
+		svol = str(vol)
+		bvol = svol.encode('utf-8')
+		print "Current Volume %s" % vol
 	
 		if volume == previous:
 			pass
 		else:
 			if sound is not None:
-				sound.terminate()
-			command = "samples/brown.mp3 -g %s" % volume		
-			sound = subprocess.Popen(["mpg321"] + command.split())
-			previous = volume
-	
+				sound.stdin.write(b'GAIN ' + bvol + b'\n')
+			else:
+				command = "samples/brown.mp3 -g";		
+				sound = subprocess.Popen(["mpg321"] + command.split(), stdout=PIPE, stdin=PIPE, stderr=STDOUT)
+				previous = vol
+				sound.stdin.write(b'GAIN ' + bvol + b'\n')
 loop()
