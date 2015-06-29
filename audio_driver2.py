@@ -3,6 +3,7 @@ from time import sleep
 from linkedList import linkedList
 import subprocess
 import serial
+import random
 
 state= 'true'
 bluetoothSerial = serial.Serial("/dev/rfcomm1", 9600)
@@ -22,22 +23,21 @@ def loop():
 	sound = None
 	previous = 0
 	while state == 'true':
-		print("Checking bluetooth signal")
-		line = int( bluetoothSerial.readline())
-		myList.cycle(line)
-		volume = myList.frontNodeValue() * 10
-		print "Current Volume %s" % volume
+		volume = random.randint(1,10)
 	
 		if volume == previous:
 			pass
 		else:
-			command = "samples/brown.mp3"
+			command = "samples/brown.mp3 -g"
 			previous = volume
 			if sound is not None:
-				subCommand = "-g %s" %volume
-				sound.communicate(input=subCommand)
+				#subCommand = "-g %s" %volume
+				#sound.communicate(input=subCommand)
+				sound.stdin.write(b'GAIN ' + bvol + b'\n')
 			else:
-				sound = subprocess.Popen(["mpg321"] + command.split(), stdin=subprocess.PIPE)
-				
+				#sound = subprocess.Popen(["mpg321"] + command.split(), stdin=subprocess.PIPE)
+				sound = subprocess.Popen(["mpg321"] + command.split(), stdout=PIPE, stdin=PIPE, stderr=STDOUT)
+				previous = vol
+				sound.stdin.write(b'GAIN ' + bvol + b'\n')
 	
 loop()
