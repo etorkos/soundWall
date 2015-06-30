@@ -1,7 +1,6 @@
 
 from time import sleep
 from linkedList import linkedList
-from subprocess import Popen, PIPE, STDOUT
 import subprocess
 import serial
 import random
@@ -37,8 +36,7 @@ def loop():
 				sound.stdin.write(b'GAIN ' + bvol + b'\n')
 			else:
 				#sound = subprocess.Popen(["mpg321"] + command.split(), stdin=subprocess.PIPE)
-				sound = subprocess.Popen(["mpg321"] + command.split(), stdout=PIPE, stdin=PIPE, stderr=STDOUT)
-				previous = vol
+				sound = subprocess.Popen(["mpg321"] + command.split(), stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
 				sound.stdin.write(b'GAIN ' + bvol + b'\n')
 	
 loop()
