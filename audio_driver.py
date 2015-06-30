@@ -6,7 +6,7 @@ import serial
 import time
 
 myList = linkedList()
-start = time.monotonic()
+
 fileName = ("samples/brown.mp3")
 bfile = fileName.encode('utf-8')
 
@@ -30,11 +30,12 @@ def loop():
 try:
 	bluetoothSerial = serial.Serial("/dev/rfcomm1", 9600)
 	sound = subprocess.Popen(["mpg321", "-R", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
+	start = time.time()
 	while True:
-		if time.monotonic() - start < 1700:
+		if time.time() - start < 1700:
 			loop()
 		else:
-			start = time.monotonic()
+			start = time.time()
 			sound.terminate()
 			sound = subprocess.Popen(["mpg321", "-R", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
 			loop()
