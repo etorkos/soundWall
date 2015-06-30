@@ -34,6 +34,7 @@ def loop():
 		else:
 			previous = volume
 			if sound is not None:
+				sound.stdin.flush();
 				sound.stdin.write(b'LOAD ' + bfile + b'\n')
 				sound.stdin.write(b'GAIN ' + bvol + b'\n')
 				print sound.stdout.readline();
