@@ -23,6 +23,8 @@ def loop():
 	sound = None
 	previous = 0
 	while state == 'true':
+		fileName = ("samples/brown.mp3")
+		bfile = fileName.encode('utf-8')
 		volume = random.randint(1,10)*5
 		svol = str(volume)
 		bvol = svol.encode('utf-8')
@@ -32,18 +34,15 @@ def loop():
 		else:
 			previous = volume
 			if sound is not None:
+				sound.stdin.write(b'LOAD ' + bfile + b'\n')
 				sound.stdin.write(b'GAIN ' + bvol + b'\n')
 				print sound.stdout.readline();
-				#sound.stdin.write('GAIN ' + bvol + '\n')
 				sleep(2);
 			else:
 				#sound = subprocess.Popen(["mpg321"] + command.split(), stdin=subprocess.PIPE)
-				sound = subprocess.Popen(["mpg321", "samples/brown.mp3","-R", "-F", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
-				#fileName = ("samples/brown.mp3")
-				#bfile = fileName.encode('utf-8')
+				sound = subprocess.Popen(["mpg321", "-R", "-F", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
+				sound.stdin.write(b'LOAD ' + bfile + b'\n')
 				sound.stdin.write(b'GAIN ' + bvol + b'\n')
-				#sound.stdin.write(b'LOAD ' + bfile + b'\n')
 				print sound.stdout.readline();
-				#sound.stdin.write('GAIN ' + bvol + '\n')
 	
 loop()
