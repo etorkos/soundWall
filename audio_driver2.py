@@ -34,11 +34,14 @@ def loop():
 			if sound is not None:
 				#subCommand = "-g %s" %volume
 				#sound.communicate(input=subCommand)
-				sound.stdin.write(b'GAIN ' + bvol + b'\n')
+				#sound.stdin.write(b'GAIN ' + bvol + b'\n')
+				sound.stdin.write('GAIN ' + bvol + '\n')
 				sleep(2);
 			else:
 				#sound = subprocess.Popen(["mpg321"] + command.split(), stdin=subprocess.PIPE)
-				sound = subprocess.Popen(["mpg321", "samples/brown.mp3", '-R', '-F'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
-				sound.stdin.write(b'GAIN ' + bvol + b'\n')
+				sound = subprocess.Popen(["mpg321", "samples/brown.mp3"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
+				#sound.stdin.write(b'GAIN ' + bvol + b'\n')
+				sound.stdin.write('GAIN ' + bvol + '\n')
+
 	
 loop()
