@@ -26,13 +26,13 @@ def loop():
 	sleep(2);
 
 try:
-	start = time.monotonic()
+	start = time.time()
 	sound = subprocess.Popen(["mpg321", "-R", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
 	while True:	
-		if time.monotonic() - start < 1700:
+		if time.time() - start < 1700:
 			loop()
 		else:
-			start = time.monotonic()
+			start = time.time()
 			sound.terminate()
 			sound = subprocess.Popen(["mpg321", "-R", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
 			loop()
