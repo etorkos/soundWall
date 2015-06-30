@@ -17,7 +17,6 @@ def loop():
 	fileName = ("samples/brown.mp3")
 	bfile = fileName.encode('utf-8')
 	sound.stdin.flush()
-	sound.stdin.write(b'LOAD ' + bfile + b'\n')
 	while state == 'true':
 		volume = random.randint(1,10)*5
 		if volume == previous:
@@ -27,6 +26,7 @@ def loop():
 		bvol = svol.encode('utf-8')
 		print "Current Volume %s" % volume
 		#sound.stdin.flush()
+		sound.stdin.write(b'LOAD ' + bfile + b'\n')
 		sound.stdin.write(b'GAIN ' + bvol + b'\n')
 		print sound.stdout.readline();
 		sleep(2);
