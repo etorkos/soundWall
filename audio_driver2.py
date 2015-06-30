@@ -35,7 +35,7 @@ def loop():
 				#subCommand = "-g %s" %volume
 				#sound.communicate(input=subCommand)
 				sound.stdin.write(b'GAIN ' + bvol + b'\n')
-				sound.sstdout.readline();
+				sound.stdout.readline();
 				#sound.stdin.write('GAIN ' + bvol + '\n')
 				sleep(2);
 			else:
