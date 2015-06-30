@@ -1,7 +1,7 @@
 
 from time import sleep
 from linkedList import linkedList
-from subprocess import Popen, PIPE
+from subprocess import Popen, PIPE, STDOUT
 import subprocess
 import serial
 import random
