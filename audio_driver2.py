@@ -25,6 +25,7 @@ def loop():
 	fileName = ("samples/brown.mp3")
 	bfile = fileName.encode('utf-8')
 	sound = subprocess.Popen(["mpg321", "-R", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
+	sound.stdin.flush()
 	sound.stdin.write(b'LOAD ' + bfile + b'\n')
 	while state == 'true':
 		volume = random.randint(1,10)*5
