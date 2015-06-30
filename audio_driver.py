@@ -5,8 +5,6 @@ import subprocess
 import serial
 import time
 
-state= 'true'
-count = 0
 myList = linkedList()
 start = time.monotonic()
 fileName = ("samples/brown.mp3")
@@ -24,7 +22,6 @@ def loop():
 	svol = str(volume)
 	bvol = svol.encode('utf-8')
 	print "Current Volume %s" % volume
-	#sound.stdin.flush()
 	sound.stdin.write(b'LOAD ' + bfile + b'\n')
 	sound.stdin.write(b'GAIN ' + bvol + b'\n')
 	print sound.stdout.readline();
@@ -36,7 +33,7 @@ try:
 	while True:
 		if time.monotonic() - start < 1700:
 			loop()
-		else
+		else:
 			start = time.monotonic()
 			sound.terminate()
 			sound = subprocess.Popen(["mpg321", "-R", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
