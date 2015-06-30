@@ -10,16 +10,12 @@ state= 'true'
 
 count = 0
 myList = linkedList()
-sound
 
 
 def loop():
-	global prevMaxNoise
-	sound = None
 	previous = 0
 	fileName = ("samples/brown.mp3")
 	bfile = fileName.encode('utf-8')
-	sound = subprocess.Popen(["mpg321", "-R", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
 	sound.stdin.flush()
 	sound.stdin.write(b'LOAD ' + bfile + b'\n')
 	while state == 'true':
@@ -37,6 +33,7 @@ def loop():
 	sound.stdin.write(b'QUIT')
 
 try:
+	sound = subprocess.Popen(["mpg321", "-R", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
 	while True:	
 		loop()
 except KeyboardInterrupt:
