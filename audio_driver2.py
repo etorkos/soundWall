@@ -40,10 +40,12 @@ def loop():
 				sleep(2);
 			else:
 				#sound = subprocess.Popen(["mpg321"] + command.split(), stdin=subprocess.PIPE)
-				sound = subprocess.Popen(["mpg321", "samples/brown.mp3", "-R", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
+				sound = subprocess.Popen(["mpg321", "-R", "-F", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
+				fileName = ("samples/brown.mp3")
+				bfile = filename.encode('utf-8')
 				sound.stdin.write(b'GAIN ' + bvol + b'\n')
+				sound.stdin.write(b'LOAD ' + bfile + b'\n')
 				print sound.stdout.readline();
 				#sound.stdin.write('GAIN ' + bvol + '\n')
-
 	
 loop()
