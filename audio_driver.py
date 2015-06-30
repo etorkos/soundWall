@@ -25,7 +25,6 @@ def loop():
 	sound.stdin.write(b'LOAD ' + bfile + b'\n')
 	sound.stdin.write(b'GAIN ' + bvol + b'\n')
 	print sound.stdout.readline();
-	sound.stdin.write(b'QUIT')
 		
 try:
 	bluetoothSerial = serial.Serial("/dev/rfcomm1", 9600)
