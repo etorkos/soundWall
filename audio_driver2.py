@@ -10,12 +10,7 @@ state= 'true'
 
 count = 0
 myList = linkedList()
-# def loop (state):
-# 	brown = subprocess.Popen(['mpg321', 'samples/brown.mp3', '-g', '25']);
-# 	sleep(1)
-# 	brown.terminate()
-
-#stay at volume for 5 seconds then floor it
+sound
 
 
 def loop():
@@ -40,4 +35,9 @@ def loop():
 		print sound.stdout.readline();
 		sleep(2);
 	sound.stdin.write(b'QUIT')
-loop()
+
+try:
+	while True:	
+		loop()
+except KeyboardInterrupt:
+	sound.stdin.write(b'QUIT')
