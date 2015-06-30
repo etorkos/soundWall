@@ -22,20 +22,19 @@ def loop():
 	global prevMaxNoise
 	sound = None
 	previous = 0
+	fileName = ("samples/brown.mp3")
+	bfile = fileName.encode('utf-8')
+	sound = subprocess.Popen(["mpg321", "-R", "-F", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
+	sound.stdin.write(b'LOAD ' + bfile + b'\n')
 	while state == 'true':
-		fileName = ("samples/brown.mp3")
-		bfile = fileName.encode('utf-8')
 		volume = random.randint(1,10)*5
+		if volume == previous:
+			pass
+		previous = volume	
 		svol = str(volume)
 		bvol = svol.encode('utf-8')
 		print "Current Volume %s" % volume
-		if previous == 0:
-			sound = subprocess.Popen(["mpg321", "-R", "-F", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
-		if volume == previous:
-			pass
-		previous = volume
-		sound.stdin.flush()
-		sound.stdin.write(b'LOAD ' + bfile + b'\n')
+		#sound.stdin.flush()
 		sound.stdin.write(b'GAIN ' + bvol + b'\n')
 		print sound.stdout.readline();
 		sleep(2);
