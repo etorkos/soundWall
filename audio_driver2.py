@@ -29,21 +29,15 @@ def loop():
 		svol = str(volume)
 		bvol = svol.encode('utf-8')
 		print "Current Volume %s" % volume
+		if previous == 0:
+			sound = subprocess.Popen(["mpg321", "-R", "-F", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
 		if volume == previous:
 			pass
-		else:
-			previous = volume
-			if sound is not None:
-				sound.stdin.flush();
-				sound.stdin.write(b'LOAD ' + bfile + b'\n')
-				sound.stdin.write(b'GAIN ' + bvol + b'\n')
-				print sound.stdout.readline();
-				sleep(2);
-			else:
-				#sound = subprocess.Popen(["mpg321"] + command.split(), stdin=subprocess.PIPE)
-				sound = subprocess.Popen(["mpg321", "-R", "-F", "foobar"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
-				sound.stdin.write(b'LOAD ' + bfile + b'\n')
-				sound.stdin.write(b'GAIN ' + bvol + b'\n')
-				print sound.stdout.readline();
+		previous = volume
+		sound.stdin.flush()
+		sound.stdin.write(b'LOAD ' + bfile + b'\n')
+		sound.stdin.write(b'GAIN ' + bvol + b'\n')
+		print sound.stdout.readline();
+		sleep(2);
 	
 loop()
