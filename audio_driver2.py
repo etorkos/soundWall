@@ -1,12 +1,12 @@
 
 from time import sleep
 from linkedList import linkedList
-import subprocess
+from subprocess import Popen, PIPE
 import serial
 import random
 
 state= 'true'
-bluetoothSerial = serial.Serial("/dev/rfcomm1", 9600)
+#bluetoothSerial = serial.Serial("/dev/rfcomm1", 9600)
 
 count = 0
 myList = linkedList()
