@@ -9,27 +9,25 @@ state= 'true'
 count = 0
 myList = linkedList()
 start = time.monotonic()
+fileName = ("samples/brown.mp3")
+bfile = fileName.encode('utf-8')
 
 def loop():
 	previous = 0
-	fileName = ("samples/brown.mp3")
-	bfile = fileName.encode('utf-8')
 	sound.stdin.flush()
-	while state == 'true':
-		line = int( bluetoothSerial.readline())
-		myList.cycle(line)
-		volume = myList.frontNodeValue() * 10
-		if volume == previous:
-			pass
-		previous = volume	
-		svol = str(volume)
-		bvol = svol.encode('utf-8')
-		print "Current Volume %s" % volume
-		#sound.stdin.flush()
-		sound.stdin.write(b'LOAD ' + bfile + b'\n')
-		sound.stdin.write(b'GAIN ' + bvol + b'\n')
-		print sound.stdout.readline();
-		sleep(2);
+	line = int( bluetoothSerial.readline())
+	myList.cycle(line)
+	volume = myList.frontNodeValue() * 10
+	if volume == previous:
+		pass
+	previous = volume	
+	svol = str(volume)
+	bvol = svol.encode('utf-8')
+	print "Current Volume %s" % volume
+	#sound.stdin.flush()
+	sound.stdin.write(b'LOAD ' + bfile + b'\n')
+	sound.stdin.write(b'GAIN ' + bvol + b'\n')
+	print sound.stdout.readline();
 	sound.stdin.write(b'QUIT')
 		
 try:
