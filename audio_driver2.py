@@ -26,7 +26,7 @@ def loop():
 		volume = random.randint(1,10)
 		svol = str(volume)
 		bvol = svol.encode('utf-8')
-		print "Current Volume %s" % vol
+		print "Current Volume %s" % volume
 		if volume == previous:
 			pass
 		else:
