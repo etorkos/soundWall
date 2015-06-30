@@ -23,7 +23,7 @@ def loop():
 	sound = None
 	previous = 0
 	while state == 'true':
-		volume = random.randint(1,10)
+		volume = random.randint(1,10)*5
 		svol = str(volume)
 		bvol = svol.encode('utf-8')
 		print "Current Volume %s" % volume
@@ -36,6 +36,7 @@ def loop():
 				#subCommand = "-g %s" %volume
 				#sound.communicate(input=subCommand)
 				sound.stdin.write(b'GAIN ' + bvol + b'\n')
+				sleep(2);
 			else:
 				#sound = subprocess.Popen(["mpg321"] + command.split(), stdin=subprocess.PIPE)
 				sound = subprocess.Popen(["mpg321"] + command.split(), stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
