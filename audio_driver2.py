@@ -30,7 +30,6 @@ def loop():
 		if volume == previous:
 			pass
 		else:
-			command = "samples/brown.mp3 -g"
 			previous = volume
 			if sound is not None:
 				#subCommand = "-g %s" %volume
@@ -39,7 +38,7 @@ def loop():
 				sleep(2);
 			else:
 				#sound = subprocess.Popen(["mpg321"] + command.split(), stdin=subprocess.PIPE)
-				sound = subprocess.Popen(["mpg321"] + command.split(), stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
+				sound = subprocess.Popen(["mpg321", "samples/brown.mp3", '-R', '-F'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
 				sound.stdin.write(b'GAIN ' + bvol + b'\n')
 	
 loop()
