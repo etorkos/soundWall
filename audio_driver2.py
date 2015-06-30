@@ -38,5 +38,5 @@ def loop():
 		sound.stdin.write(b'GAIN ' + bvol + b'\n')
 		print sound.stdout.readline();
 		sleep(2);
-	
+	sound.stdin.write(b'QUIT')
 loop()
